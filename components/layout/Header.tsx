@@ -1,7 +1,6 @@
 'use client'
 
-import { Store, Package, History, RefreshCw, TrendingUp } from 'lucide-[#FF4500]'
-import { Store as StoreIcon, Package as PackageIcon, History as HistoryIcon, RefreshCw as RefreshIcon, TrendingUp as TrendingIcon } from 'lucide-react'
+import { Store, Package, History, RefreshCw, TrendingUp } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
 
 interface HeaderProps {
@@ -25,7 +24,7 @@ export default function Header({
     <header className="h-16 px-6 bg-dark-surface border-b border-dark-card flex items-center justify-between shrink-0 shadow-md">
       <div className="flex items-center gap-3">
         <div className="p-2 bg-brand-primary text-white rounded-xl shadow-lg shadow-brand-primary/25">
-          <StoreIcon className="w-5 h-5" />
+          <Store className="w-5 h-5" />
         </div>
         <div>
           <div className="flex items-center gap-2">
@@ -39,7 +38,7 @@ export default function Header({
       <div className="hidden md:flex items-center gap-4 px-4 py-1.5 bg-dark-card/60 rounded-xl border border-dark-border">
         <div className="flex items-center gap-2">
           <div className="p-1.5 bg-emerald-500/10 text-emerald-400 rounded-lg">
-            <TrendingIcon className="w-4 h-4" />
+            <TrendingUp className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] text-dark-muted uppercase font-medium">Omset Hari Ini</div>
@@ -63,7 +62,7 @@ export default function Header({
           onClick={onOpenProductModal}
           className="flex items-center gap-2 px-3.5 py-2 bg-dark-card hover:bg-dark-border text-xs font-medium rounded-lg border border-dark-border transition-colors text-dark-text"
         >
-          <PackageIcon className="w-4 h-4 text-brand-primary" />
+          <Package className="w-4 h-4 text-brand-primary" />
           <span className="hidden sm:inline">Manajemen Produk</span>
         </button>
 
@@ -71,7 +70,7 @@ export default function Header({
           onClick={onOpenHistoryModal}
           className="flex items-center gap-2 px-3.5 py-2 bg-dark-card hover:bg-dark-border text-xs font-medium rounded-lg border border-dark-border transition-colors text-dark-text"
         >
-          <HistoryIcon className="w-4 h-4 text-brand-primary" />
+          <History className="w-4 h-4 text-brand-primary" />
           <span className="hidden sm:inline">Riwayat Transaksi</span>
         </button>
 
@@ -80,7 +79,7 @@ export default function Header({
           title="Refresh Data"
           className="p-2 bg-dark-card hover:bg-dark-border text-dark-muted hover:text-white rounded-lg border border-dark-border transition-colors"
         >
-          <RefreshIcon className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
         </button>
       </div>
     </header>
