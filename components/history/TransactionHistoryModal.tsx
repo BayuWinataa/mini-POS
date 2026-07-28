@@ -54,8 +54,14 @@ export default function TransactionHistoryModal({
   })
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-dark-surface border border-dark-card rounded-2xl shadow-2xl overflow-hidden flex flex-col text-dark-text">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in cursor-pointer"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl max-h-[90vh] bg-dark-surface border border-dark-card rounded-2xl shadow-2xl overflow-hidden flex flex-col text-dark-text cursor-default"
+      >
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-dark-card/60 border-b border-dark-card">
           <div className="flex items-center gap-2.5">
@@ -149,8 +155,14 @@ export default function TransactionHistoryModal({
 
       {/* Sub-modal Detail Item Transaksi */}
       {selectedTransaction && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="w-full max-w-md bg-dark-surface border border-dark-border rounded-xl shadow-2xl p-6 space-y-4 text-dark-text">
+        <div
+          onClick={() => setSelectedTransaction(null)}
+          className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-dark-surface border border-dark-border rounded-xl shadow-2xl p-6 space-y-4 text-dark-text cursor-default"
+          >
             <div className="flex items-center justify-between pb-3 border-b border-dark-card">
               <div>
                 <h3 className="font-bold text-sm text-white">Rincian Transaksi</h3>
