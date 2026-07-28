@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛍️ Mini Point of Sale (POS) Web Application
 
-## Getting Started
+Aplikasi web **Mini Point of Sale (POS)** ritel full-stack yang responsif, aman, dan andal. Dibangun menggunakan Next.js 16 App Router, Prisma ORM, Neon Serverless PostgreSQL, Tailwind CSS, dan Vitest.
 
-First, run the development server:
+---
 
+## 🌟 Fitur Utama
+
+- **📦 Manajemen Produk (Katalog & Admin)**:
+  - CRUD (Tambah, Edit, Lihat Produk).
+  - Toggle Status Aktif / Non-aktif produk.
+  - Indikator stok real-time (*Out of Stock* & *Low Stock Warning*).
+
+- **🛒 Keranjang Belanja Interaktif**:
+  - Penambahan & pengurangan kuantitas item dengan kontrol stok maksimal di UI.
+  - Kalkulasi subtotal & total bayar real-time.
+  - Hapus item individual atau bersihkan seluruh keranjang.
+
+- **💳 Checkout & Transaksi Aman (Server-Side)**:
+  - Validasi harga & ketersediaan stok 100% di **server-side** (mencegah manipulasi dari frontend).
+  - Eksekusi atomic transaction menggunakan **Prisma `$transaction`** untuk mencegah *race condition* & stok negatif.
+  - **Snapshot Harga Produk**: Harga produk saat transaksi disimpan ke record `TransactionItem` sehingga perubahan harga di masa mendatang tidak mengubah riwayat transaksi lama.
+  - Ringkasan transaksi & cetak struk (*Print Receipt*).
+
+- **📜 Riwayat Transaksi & Ekspor Laporan**:
+  - Tabel riwayat transaksi terurut dari yang terbaru.
+  - Filter & Pencarian berdasarkan No. Transaksi / Nama Produk.
+  - Detail rincian item pesanan dalam modal.
+  - **Ekspor Laporan Transaksi ke format CSV**.
+
+- **🧪 Automated Testing**:
+  - Memiliki **3 Test Suite (7 Pass Tests)** berbasis Vitest untuk menguji kalkulasi harga server-side, integritas stok, dan validasi status produk.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+| Layer | Technology |
+|---|---|
+| **Framework** | Next.js 16 (App Router), React 19, TypeScript |
+| **Database & ORM** | Prisma ORM + Neon PostgreSQL |
+| **Styling & Icons** | Tailwind CSS v4, Lucide Icons, Canvas Confetti |
+| **Testing** | Vitest |
+| **Package Manager** | pnpm |
+
+---
+
+## 🚀 Panduan Instalasi & Cara Menjalankan
+
+### 1. Clone Repository & Install Dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/BayuWinataa/mini-POS.git
+cd mini-pos
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Konfigurasi Environment Variables
+Buat file `.env` di root project berdasarkan `.env.example`:
+```env
+DATABASE_URL="postgresql://user:password@ep-example-host.us-east-2.aws.neon.tech/neondb?sslmode=require"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Generate Prisma Client & Database Migration
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*(Opsional) Seeding Data Produk Awal:*
+```bash
+pnpm db:seed
+```
 
-## Learn More
+### 4. Menjalankan Aplikasi (Development Server)
+```bash
+pnpm dev
+```
+Buka browser di `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧪 Menjalankan Automated Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Untuk menjalankan pengujian otomatis berbasis **Vitest**:
+```bash
+pnpm test
+```
+*Atau secara langsung:*
+```bash
+npx vitest run
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 Dokumentasi Submission PDF
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Dokumen teknis submission sesuai bobot penilaian recruitment dapat diakses di:
+- **[SUBMISSION_OUTLINE.md](file:///c:/coba/mini-pos/SUBMISSION_OUTLINE.md)**
+- **[AI_LOG.md](file:///c:/coba/mini-pos/AI_LOG.md)**
+- **[ARCHITECTURE.md](file:///c:/coba/mini-pos/ARCHITECTURE.md)**
