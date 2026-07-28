@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Plus, PackageX, Filter, Coffee, Utensils, LayoutGrid } from 'lucide-react'
+import { Search, Plus, PackageX, Filter, Coffee, Utensils, LayoutGrid, Cookie } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
 
 export interface Product {
@@ -10,6 +10,7 @@ export interface Product {
   name: string
   price: number
   stock: number
+  category?: string
   isActive: boolean
 }
 
@@ -23,6 +24,7 @@ const CATEGORIES = [
   { id: 'all', label: 'Semua', icon: LayoutGrid },
   { id: 'minuman', label: 'Minuman', icon: Coffee },
   { id: 'makanan', label: 'Makanan', icon: Utensils },
+  { id: 'snack', label: 'Snack', icon: Cookie },
 ]
 
 export default function ProductCatalog({
@@ -34,8 +36,12 @@ export default function ProductCatalog({
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [filterActiveOnly, setFilterActiveOnly] = useState(true)
 
-  const getProductCategory = (name: string) => {
-    const lower = name.toLowerCase()
+  const getProductCategory = (p: Product) => {
+    if (p.category) {
+      return p.category.toLowerCase()
+    }
+
+    const lower = p.name.toLowerCase()
     if (
       lower.includes('kopi') ||
       lower.includes('teh') ||
@@ -48,13 +54,11 @@ export default function ProductCatalog({
       return 'minuman'
     }
     if (
-      lower.includes('roti') ||
-      lower.includes('croissant') ||
-      lower.includes('nasi') ||
-      lower.includes('goreng') ||
-      lower.includes('makan')
+      lower.includes('snack') ||
+      lower.includes('keripik') ||
+      lower.includes('biskuit')
     ) {
-      return 'makanan'
+      return 'snack'
     }
     return 'makanan'
   }
@@ -62,7 +66,7 @@ export default function ProductCatalog({
   const filteredProducts = products.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase())
     const matchesStatus = filterActiveOnly ? p.isActive : true
-    const category = getProductCategory(p.name)
+    const category = getProductCategory(p)
     const matchesCategory = selectedCategory === 'all' || category === selectedCategory
     return matchesSearch && matchesStatus && matchesCategory
   })
@@ -169,11 +173,16 @@ export default function ProductCatalog({
                         : 'border-dark-card hover:border-brand-primary/50 hover:shadow-lg hover:shadow-brand-primary/5'
                     }`}
                   >
-                    {/* Status Badge */}
+                    {/* Status & Category Badge */}
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-sm text-dark-text line-clamp-2 leading-snug">
-                        {product.name}
-                      </h3>
+                      <div>
+                        <h3 className="font-semibold text-sm text-dark-text line-clamp-2 leading-snug">
+                          {product.name}
+                        </h3>
+                        <span className="inline-block mt-1 text-[10px] text-dark-muted font-medium bg-dark-card px-1.5 py-0.5 rounded border border-dark-border">
+                          {product.category || 'Lainnya'}
+                        </span>
+                      </div>
                       <span
                         className={`text-[10px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 ${
                           !product.isActive

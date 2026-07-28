@@ -28,6 +28,7 @@ export default function ProductManagementModal({
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [stock, setStock] = useState('')
+  const [category, setCategory] = useState('Minuman')
   const [isActive, setIsActive] = useState(true)
 
   const [errorMsg, setErrorMsg] = useState('')
@@ -41,6 +42,7 @@ export default function ProductManagementModal({
     setName('')
     setPrice('')
     setStock('')
+    setCategory('Minuman')
     setIsActive(true)
     setErrorMsg('')
     setInfoMsg('')
@@ -52,6 +54,7 @@ export default function ProductManagementModal({
     setName(product.name)
     setPrice(product.price.toString())
     setStock(product.stock.toString())
+    setCategory(product.category || 'Minuman')
     setIsActive(product.isActive)
     setErrorMsg('')
     setInfoMsg('')
@@ -78,6 +81,7 @@ export default function ProductManagementModal({
           name: name.trim(),
           price: priceNum,
           stock: stockNum,
+          category,
           isActive,
         })
         if (!res.success) throw new Error(res.error)
@@ -86,6 +90,7 @@ export default function ProductManagementModal({
           name: name.trim(),
           price: priceNum,
           stock: stockNum,
+          category,
           isActive,
         })
         if (!res.success) throw new Error(res.error)
@@ -141,7 +146,7 @@ export default function ProductManagementModal({
           <div>
             <h2 className="font-bold text-lg text-white">Manajemen Katalog Produk</h2>
             <p className="text-xs text-dark-muted">
-              Kelola stok, harga, status aktif, dan hapus produk kasir.
+              Kelola stok, harga, kategori, status aktif, dan hapus produk kasir.
             </p>
           </div>
           <button
@@ -188,6 +193,7 @@ export default function ProductManagementModal({
             <thead>
               <tr className="border-b border-dark-card text-dark-muted font-medium">
                 <th className="pb-3 px-3">Nama Produk</th>
+                <th className="pb-3 px-3">Kategori</th>
                 <th className="pb-3 px-3">Harga Unit</th>
                 <th className="pb-3 px-3">Stok Tersedia</th>
                 <th className="pb-3 px-3">Status</th>
@@ -197,7 +203,7 @@ export default function ProductManagementModal({
             <tbody className="divide-y divide-dark-card">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-dark-subtle">
+                  <td colSpan={6} className="py-8 text-center text-dark-subtle">
                     Tidak ada produk ditemukan.
                   </td>
                 </tr>
@@ -205,6 +211,11 @@ export default function ProductManagementModal({
                 filteredProducts.map((product) => (
                   <tr key={product.id} className="hover:bg-dark-card/40 transition-colors">
                     <td className="py-3 px-3 font-semibold text-dark-text">{product.name}</td>
+                    <td className="py-3 px-3 text-dark-muted">
+                      <span className="px-2 py-0.5 text-[10px] bg-dark-card border border-dark-border rounded-md">
+                        {product.category || 'Lainnya'}
+                      </span>
+                    </td>
                     <td className="py-3 px-3 font-mono-numbers text-brand-primary">
                       {formatRupiah(product.price)}
                     </td>
@@ -290,6 +301,20 @@ export default function ProductManagementModal({
                   onChange={(e) => setName(e.target.value)}
                   className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
                 />
+              </div>
+
+              <div>
+                <label className="block text-dark-muted mb-1 font-medium">Kategori Produk</label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
+                >
+                  <option value="Minuman">Minuman</option>
+                  <option value="Makanan">Makanan</option>
+                  <option value="Snack">Snack</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
               </div>
 
               <div className="grid grid-cols-2 gap-3">

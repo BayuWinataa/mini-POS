@@ -4,6 +4,7 @@ export const ProductSchema = z.object({
   name: z.string().min(1, 'Nama produk wajib diisi').max(100, 'Nama produk terlalu panjang'),
   price: z.number().int('Harga harus berupa angka bulat').min(100, 'Harga minimal Rp 100'),
   stock: z.number().int('Stok harus berupa angka bulat').min(0, 'Stok tidak boleh negatif'),
+  category: z.string().min(1, 'Kategori wajib dipilih').default('Lainnya'),
   isActive: z.boolean().default(true),
 })
 
