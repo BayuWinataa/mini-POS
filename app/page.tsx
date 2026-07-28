@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { toast } from 'sonner'
 import Header from '@/components/layout/Header'
 import ProductCatalog from '@/components/pos/ProductCatalog'
@@ -11,6 +11,7 @@ import TransactionHistoryModal from '@/components/history/TransactionHistoryModa
 
 import { usePosData } from '@/hooks/usePosData'
 import { useCart } from '@/hooks/useCart'
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { processCheckout } from '@/app/actions/transactionActions'
 
 export default function PosDashboardPage() {
@@ -24,8 +25,23 @@ export default function PosDashboardPage() {
   const [isProductModalOpen, setIsProductModalOpen] = useState(false)
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false)
 
+  // Calculate Today's Sales Statistics
+  const todayStr = new Date().toDateString()
+  const todayTransactions = transactions.filter(
+    (t) => new Date(t.createdAt).toDateString() === todayStr
+  )
+  const todaySalesTotal = todayTransactions.reduce((sum, t) => sum + t.totalAmount, 0)
+  const todayTransactionCount = todayTransactions.length
+
+  // Close Modals Helper for Keyboard Shortcut
+  const handleCloseAllModals = useCallback(() => {
+    setActiveTransaction(null)
+    setIsProductModalOpen(false)
+    setIsHistoryModalOpen(false)
+  }, [])
+
   // Checkout Execution
-  const handleCheckout = async () => {
+  const handleCheckout = useCallback(async () => {
     if (cart.length === 0) return
 
     setIsCheckoutSubmitting(true)
@@ -52,13 +68,21 @@ export default function PosDashboardPage() {
     } finally {
       setIsCheckoutSubmitting(false)
     }
-  }
+  }, [cart, clearCart, refreshData])
+
+  // Global Keyboard Hotkeys Listener
+  useKeyboardShortcuts({
+    onCloseModals: handleCloseAllModals,
+    onCheckout: handleCheckout,
+  })
 
   return (
     <div className="flex flex-col h-screen bg-dark-bg text-dark-text overflow-hidden">
       {/* Navbar Header */}
       <Header
         isLoading={isLoading}
+        todaySalesTotal={todaySalesTotal}
+        todayTransactionCount={todayTransactionCount}
         onOpenProductModal={() => setIsProductModalOpen(true)}
         onOpenHistoryModal={() => setIsHistoryModalOpen(true)}
         onRefresh={refreshData}

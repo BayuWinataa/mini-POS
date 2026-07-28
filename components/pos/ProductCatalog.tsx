@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Plus, PackageX, Filter } from 'lucide-react'
+import { Search, Plus, PackageX, Filter, Coffee, Utensils, LayoutGrid } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
 
 export interface Product {
@@ -19,46 +19,105 @@ interface ProductCatalogProps {
   isLoading?: boolean
 }
 
+const CATEGORIES = [
+  { id: 'all', label: 'Semua', icon: LayoutGrid },
+  { id: 'minuman', label: 'Minuman', icon: Coffee },
+  { id: 'makanan', label: 'Makanan', icon: Utensils },
+]
+
 export default function ProductCatalog({
   products,
   onAddToCart,
   isLoading = false,
 }: ProductCatalogProps) {
   const [search, setSearch] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('all')
   const [filterActiveOnly, setFilterActiveOnly] = useState(true)
+
+  const getProductCategory = (name: string) => {
+    const lower = name.toLowerCase()
+    if (
+      lower.includes('kopi') ||
+      lower.includes('teh') ||
+      lower.includes('latte') ||
+      lower.includes('americano') ||
+      lower.includes('air') ||
+      lower.includes('ice') ||
+      lower.includes('minum')
+    ) {
+      return 'minuman'
+    }
+    if (
+      lower.includes('roti') ||
+      lower.includes('croissant') ||
+      lower.includes('nasi') ||
+      lower.includes('goreng') ||
+      lower.includes('makan')
+    ) {
+      return 'makanan'
+    }
+    return 'makanan'
+  }
 
   const filteredProducts = products.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase())
     const matchesStatus = filterActiveOnly ? p.isActive : true
-    return matchesSearch && matchesStatus
+    const category = getProductCategory(p.name)
+    const matchesCategory = selectedCategory === 'all' || category === selectedCategory
+    return matchesSearch && matchesStatus && matchesCategory
   })
 
   return (
     <div className="flex flex-col h-full space-y-4">
       {/* Header & Controls */}
-      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-dark-surface p-4 rounded-xl border border-dark-card shadow-sm">
-        <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-muted" />
-          <input
-            type="text"
-            placeholder="Cari produk (misal: Kopi, Roti)..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-dark-card text-white text-sm rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary placeholder-dark-subtle transition-colors"
-          />
+      <div className="flex flex-col gap-3 bg-dark-surface p-4 rounded-xl border border-dark-card shadow-sm">
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+          <div className="relative flex-1">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-muted" />
+            <input
+              id="pos-search-input"
+              type="text"
+              placeholder="Cari produk (Tekan '/' untuk fokus)..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-dark-card text-white text-sm rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary placeholder-dark-subtle transition-colors"
+            />
+          </div>
+
+          <button
+            onClick={() => setFilterActiveOnly(!filterActiveOnly)}
+            className={`flex items-center justify-center gap-2 px-3.5 py-2 text-xs font-medium rounded-lg border transition-all ${
+              filterActiveOnly
+                ? 'bg-brand-primary/10 border-brand-primary/40 text-brand-primary'
+                : 'bg-dark-card border-dark-border text-dark-muted hover:text-white'
+            }`}
+          >
+            <Filter className="w-3.5 h-3.5" />
+            <span>{filterActiveOnly ? 'Hanya Aktif' : 'Tampilkan Semua'}</span>
+          </button>
         </div>
 
-        <button
-          onClick={() => setFilterActiveOnly(!filterActiveOnly)}
-          className={`flex items-center gap-2 px-3.5 py-2 text-xs font-medium rounded-lg border transition-all ${
-            filterActiveOnly
-              ? 'bg-brand-primary/10 border-brand-primary/40 text-brand-primary'
-              : 'bg-dark-card border-dark-border text-dark-muted hover:text-white'
-          }`}
-        >
-          <Filter className="w-3.5 h-3.5" />
-          <span>{filterActiveOnly ? 'Hanya Produk Aktif' : 'Tampilkan Semua'}</span>
-        </button>
+        {/* Category Pills Filter */}
+        <div className="flex items-center gap-2 pt-1 overflow-x-auto no-scrollbar">
+          {CATEGORIES.map((cat) => {
+            const Icon = cat.icon
+            const isSelected = selectedCategory === cat.id
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all shrink-0 ${
+                  isSelected
+                    ? 'bg-brand-primary text-white shadow-md'
+                    : 'bg-dark-card text-dark-muted hover:text-white hover:bg-dark-border border border-dark-border'
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span>{cat.label}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {/* Grid Katalog Produk */}
@@ -83,7 +142,7 @@ export default function ProductCatalog({
             <p className="text-xs text-dark-muted mt-1 max-w-xs">
               {search
                 ? `Tidak ada produk yang cocok dengan pencarian "${search}".`
-                : 'Belum ada produk yang tersedia di katalog.'}
+                : 'Belum ada produk yang tersedia di kategori ini.'}
             </p>
           </div>
         ) : (
