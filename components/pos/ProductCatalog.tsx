@@ -36,15 +36,15 @@ export default function ProductCatalog({
   return (
     <div className="flex flex-col h-full space-y-4">
       {/* Header & Controls */}
-      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-[#111827] p-4 rounded-xl border border-[#1F2937] shadow-sm">
+      <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-dark-surface p-4 rounded-xl border border-dark-card shadow-sm">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF]" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-muted" />
           <input
             type="text"
             placeholder="Cari produk (misal: Kopi, Roti)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-[#1F2937] text-white text-sm rounded-lg border border-[#374151] focus:outline-none focus:border-[#FF4500] placeholder-[#6B7280] transition-colors"
+            className="w-full pl-10 pr-4 py-2 bg-dark-card text-white text-sm rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary placeholder-dark-subtle transition-colors"
           />
         </div>
 
@@ -52,8 +52,8 @@ export default function ProductCatalog({
           onClick={() => setFilterActiveOnly(!filterActiveOnly)}
           className={`flex items-center gap-2 px-3.5 py-2 text-xs font-medium rounded-lg border transition-all ${
             filterActiveOnly
-              ? 'bg-[#FF4500]/10 border-[#FF4500]/40 text-[#FF4500]'
-              : 'bg-[#1F2937] border-[#374151] text-[#9CA3AF] hover:text-white'
+              ? 'bg-brand-primary/10 border-brand-primary/40 text-brand-primary'
+              : 'bg-dark-card border-dark-border text-dark-muted hover:text-white'
           }`}
         >
           <Filter className="w-3.5 h-3.5" />
@@ -68,19 +68,19 @@ export default function ProductCatalog({
             {[1, 2, 3, 4, 6].map((i) => (
               <div
                 key={i}
-                className="h-36 bg-[#111827] border border-[#1F2937] rounded-xl animate-pulse p-4 space-y-3"
+                className="h-36 bg-dark-surface border border-dark-card rounded-xl animate-pulse p-4 space-y-3"
               >
-                <div className="h-4 bg-[#1F2937] rounded w-3/4" />
-                <div className="h-4 bg-[#1F2937] rounded w-1/2" />
-                <div className="h-8 bg-[#1F2937] rounded w-full mt-4" />
+                <div className="h-4 bg-dark-card rounded w-3/4" />
+                <div className="h-4 bg-dark-card rounded w-1/2" />
+                <div className="h-8 bg-dark-card rounded w-full mt-4" />
               </div>
             ))}
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 bg-[#111827]/50 rounded-xl border border-dashed border-[#374151] p-8 text-center">
-            <PackageX className="w-12 h-12 text-[#6B7280] mb-3" />
-            <h4 className="text-sm font-semibold text-[#F9FAFB]">Produk Tidak Ditemukan</h4>
-            <p className="text-xs text-[#9CA3AF] mt-1 max-w-xs">
+          <div className="flex flex-col items-center justify-center h-64 bg-dark-surface/50 rounded-xl border border-dashed border-dark-border p-8 text-center">
+            <PackageX className="w-12 h-12 text-dark-subtle mb-3" />
+            <h4 className="text-sm font-semibold text-dark-text">Produk Tidak Ditemukan</h4>
+            <p className="text-xs text-dark-muted mt-1 max-w-xs">
               {search
                 ? `Tidak ada produk yang cocok dengan pencarian "${search}".`
                 : 'Belum ada produk yang tersedia di katalog.'}
@@ -104,15 +104,15 @@ export default function ProductCatalog({
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className={`group relative flex flex-col justify-between p-4 bg-[#111827] rounded-xl border transition-all duration-200 ${
+                    className={`group relative flex flex-col justify-between p-4 bg-dark-surface rounded-xl border transition-all duration-200 ${
                       !product.isActive
-                        ? 'opacity-60 border-[#1F2937] bg-[#111827]/40'
-                        : 'border-[#1F2937] hover:border-[#FF4500]/50 hover:shadow-lg hover:shadow-[#FF4500]/5'
+                        ? 'opacity-60 border-dark-card bg-dark-surface/40'
+                        : 'border-dark-card hover:border-brand-primary/50 hover:shadow-lg hover:shadow-brand-primary/5'
                     }`}
                   >
                     {/* Status Badge */}
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-sm text-[#F9FAFB] line-clamp-2 leading-snug">
+                      <h3 className="font-semibold text-sm text-dark-text line-clamp-2 leading-snug">
                         {product.name}
                       </h3>
                       <span
@@ -137,8 +137,8 @@ export default function ProductCatalog({
                     </div>
 
                     {/* Pricing & Action */}
-                    <div className="mt-4 flex items-center justify-between pt-3 border-t border-[#1F2937]">
-                      <div className="font-mono-numbers text-base font-bold text-[#FF4500]">
+                    <div className="mt-4 flex items-center justify-between pt-3 border-t border-dark-card">
+                      <div className="font-mono-numbers text-base font-bold text-brand-primary">
                         {formatRupiah(product.price)}
                       </div>
 
@@ -147,8 +147,8 @@ export default function ProductCatalog({
                         onClick={() => onAddToCart(product)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                           !product.isActive || isOutOfStock
-                            ? 'bg-[#1F2937] text-[#6B7280] cursor-not-allowed'
-                            : 'bg-[#FF4500] hover:bg-[#E03E00] text-white shadow-sm hover:shadow-[#FF4500]/20 active:scale-95'
+                            ? 'bg-dark-card text-dark-subtle cursor-not-allowed'
+                            : 'bg-brand-primary hover:bg-brand-hover text-white shadow-sm hover:shadow-brand-primary/20 active:scale-95'
                         }`}
                       >
                         <Plus className="w-3.5 h-3.5" />

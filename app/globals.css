@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-primary: #FF4500;
+  --color-brand-hover: #E03E00;
+  
+  --color-dark-bg: #0B0F19;
+  --color-dark-surface: #111827;
+  --color-dark-card: #1F2937;
+  --color-dark-border: #374151;
+  
+  --color-dark-text: #F9FAFB;
+  --color-dark-muted: #9CA3AF;
+  --color-dark-subtle: #6B7280;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
 @layer base {
   :root {
     --primary: #FF4500;
@@ -20,9 +37,6 @@
     --radius-card: 8px;
     --radius-control: 8px;
     --radius-pill: 9999px;
-
-    --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
   }
 
   .dark {
@@ -42,7 +56,7 @@
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
-  font-family: var(--font-inter);
+  font-family: var(--font-sans);
   min-height: 100vh;
   margin: 0;
   padding: 0;

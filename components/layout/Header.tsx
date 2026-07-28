@@ -16,19 +16,19 @@ export default function Header({
   onRefresh,
 }: HeaderProps) {
   return (
-    <header className="h-16 px-6 bg-[#111827] border-b border-[#1F2937] flex items-center justify-between shrink-0 shadow-md">
+    <header className="h-16 px-6 bg-dark-surface border-b border-dark-card flex items-center justify-between shrink-0 shadow-md">
       <div className="flex items-center gap-3">
-        <div className="p-2 bg-[#FF4500] text-white rounded-xl shadow-lg shadow-[#FF4500]/25">
+        <div className="p-2 bg-brand-primary text-white rounded-xl shadow-lg shadow-brand-primary/25">
           <Store className="w-5 h-5" />
         </div>
         <div>
           <div className="flex items-center gap-2">
             <h1 className="font-extrabold text-base tracking-tight text-white">MINI POS</h1>
-            <span className="px-2 py-0.5 text-[10px] font-semibold bg-[#FF4500]/10 text-[#FF4500] rounded-full border border-[#FF4500]/20">
+            <span className="px-2 py-0.5 text-[10px] font-semibold bg-brand-primary/10 text-brand-primary rounded-full border border-brand-primary/20">
               PROD v1.0
             </span>
           </div>
-          <p className="text-[11px] text-[#9CA3AF]">Point of Sale & Management Ritel</p>
+          <p className="text-[11px] text-dark-muted">Point of Sale & Management Ritel</p>
         </div>
       </div>
 
@@ -36,24 +36,24 @@ export default function Header({
       <div className="flex items-center gap-3">
         <button
           onClick={onOpenProductModal}
-          className="flex items-center gap-2 px-3.5 py-2 bg-[#1F2937] hover:bg-[#374151] text-xs font-medium rounded-lg border border-[#374151] transition-colors"
+          className="flex items-center gap-2 px-3.5 py-2 bg-dark-card hover:bg-dark-border text-xs font-medium rounded-lg border border-dark-border transition-colors text-dark-text"
         >
-          <Package className="w-4 h-4 text-[#FF4500]" />
+          <Package className="w-4 h-4 text-brand-primary" />
           <span className="hidden sm:inline">Manajemen Produk</span>
         </button>
 
         <button
           onClick={onOpenHistoryModal}
-          className="flex items-center gap-2 px-3.5 py-2 bg-[#1F2937] hover:bg-[#374151] text-xs font-medium rounded-lg border border-[#374151] transition-colors"
+          className="flex items-center gap-2 px-3.5 py-2 bg-dark-card hover:bg-dark-border text-xs font-medium rounded-lg border border-dark-border transition-colors text-dark-text"
         >
-          <History className="w-4 h-4 text-[#FF4500]" />
+          <History className="w-4 h-4 text-brand-primary" />
           <span className="hidden sm:inline">Riwayat Transaksi</span>
         </button>
 
         <button
           onClick={onRefresh}
           title="Refresh Data"
-          className="p-2 bg-[#1F2937] hover:bg-[#374151] text-[#9CA3AF] hover:text-white rounded-lg border border-[#374151] transition-colors"
+          className="p-2 bg-dark-card hover:bg-dark-border text-dark-muted hover:text-white rounded-lg border border-dark-border transition-colors"
         >
           <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
         </button>

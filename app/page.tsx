@@ -55,7 +55,7 @@ export default function PosDashboardPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-[#0B0F19] text-[#F9FAFB] overflow-hidden">
+    <div className="flex flex-col h-screen bg-dark-bg text-dark-text overflow-hidden">
       {/* Navbar Header */}
       <Header
         isLoading={isLoading}

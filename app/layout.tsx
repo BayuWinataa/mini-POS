@@ -30,7 +30,7 @@ export default function RootLayout({
     >
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-[#0B0F19] text-[#F9FAFB] font-sans"
+        className="min-h-full flex flex-col bg-dark-bg text-dark-text font-sans"
       >
         {children}
         <Toaster position="top-right" richColors theme="dark" />

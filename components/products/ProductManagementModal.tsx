@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { X, Plus, Edit2, Search, Power, Trash2, AlertTriangle } from 'lucide-react'
+import { X, Plus, Edit2, Search, Power, Trash2 } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
 import { Product } from '../pos/ProductCatalog'
 import { createProduct, updateProduct, toggleProductStatus, deleteProduct } from '@/app/actions/productActions'
@@ -135,18 +135,18 @@ export default function ProductManagementModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-[#111827] border border-[#1F2937] rounded-2xl shadow-2xl overflow-hidden flex flex-col text-[#F9FAFB]">
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-dark-surface border border-dark-card rounded-2xl shadow-2xl overflow-hidden flex flex-col text-dark-text">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-[#1F2937]/60 border-b border-[#1F2937]">
+        <div className="flex items-center justify-between px-6 py-4 bg-dark-card/60 border-b border-dark-card">
           <div>
             <h2 className="font-bold text-lg text-white">Manajemen Katalog Produk</h2>
-            <p className="text-xs text-[#9CA3AF]">
+            <p className="text-xs text-dark-muted">
               Kelola stok, harga, status aktif, dan hapus produk kasir.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-[#9CA3AF] hover:text-white rounded-lg hover:bg-[#1F2937] transition-colors"
+            className="p-1.5 text-dark-muted hover:text-white rounded-lg hover:bg-dark-card transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -154,28 +154,28 @@ export default function ProductManagementModal({
 
         {/* Global Notification Banner */}
         {infoMsg && (
-          <div className="px-6 py-2 bg-[#FF4500]/10 border-b border-[#FF4500]/30 text-[#FF4500] text-xs font-medium flex justify-between items-center">
+          <div className="px-6 py-2 bg-brand-primary/10 border-b border-brand-primary/30 text-brand-primary text-xs font-medium flex justify-between items-center">
             <span>{infoMsg}</span>
             <button onClick={() => setInfoMsg('')} className="underline text-[11px]">Tutup</button>
           </div>
         )}
 
         {/* Toolbar Controls */}
-        <div className="p-4 bg-[#1F2937]/30 border-b border-[#1F2937] flex flex-col sm:flex-row gap-3 justify-between items-stretch sm:items-center">
+        <div className="p-4 bg-dark-card/30 border-b border-dark-card flex flex-col sm:flex-row gap-3 justify-between items-stretch sm:items-center">
           <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-muted" />
             <input
               type="text"
               placeholder="Cari nama produk..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 bg-[#1F2937] text-xs text-white rounded-lg border border-[#374151] focus:outline-none focus:border-[#FF4500]"
+              className="w-full pl-9 pr-3 py-1.5 bg-dark-card text-xs text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
             />
           </div>
 
           <button
             onClick={handleOpenAddForm}
-            className="flex items-center justify-center gap-1.5 px-4 py-2 bg-[#FF4500] hover:bg-[#E03E00] text-white font-medium text-xs rounded-lg shadow-sm transition-all"
+            className="flex items-center justify-center gap-1.5 px-4 py-2 bg-brand-primary hover:bg-brand-hover text-white font-medium text-xs rounded-lg shadow-sm transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>Tambah Produk Baru</span>
@@ -186,7 +186,7 @@ export default function ProductManagementModal({
         <div className="flex-1 overflow-y-auto p-4">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-[#1F2937] text-[#9CA3AF] font-medium">
+              <tr className="border-b border-dark-card text-dark-muted font-medium">
                 <th className="pb-3 px-3">Nama Produk</th>
                 <th className="pb-3 px-3">Harga Unit</th>
                 <th className="pb-3 px-3">Stok Tersedia</th>
@@ -194,18 +194,18 @@ export default function ProductManagementModal({
                 <th className="pb-3 px-3 text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1F2937]">
+            <tbody className="divide-y divide-dark-card">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-[#6B7280]">
+                  <td colSpan={5} className="py-8 text-center text-dark-subtle">
                     Tidak ada produk ditemukan.
                   </td>
                 </tr>
               ) : (
                 filteredProducts.map((product) => (
-                  <tr key={product.id} className="hover:bg-[#1F2937]/40 transition-colors">
-                    <td className="py-3 px-3 font-semibold text-[#F9FAFB]">{product.name}</td>
-                    <td className="py-3 px-3 font-mono-numbers text-[#FF4500]">
+                  <tr key={product.id} className="hover:bg-dark-card/40 transition-colors">
+                    <td className="py-3 px-3 font-semibold text-dark-text">{product.name}</td>
+                    <td className="py-3 px-3 font-mono-numbers text-brand-primary">
                       {formatRupiah(product.price)}
                     </td>
                     <td className="py-3 px-3 font-mono-numbers">
@@ -213,7 +213,7 @@ export default function ProductManagementModal({
                         className={
                           product.stock <= 5
                             ? 'text-amber-400 font-bold'
-                            : 'text-[#F9FAFB]'
+                            : 'text-dark-text'
                         }
                       >
                         {product.stock}
@@ -236,7 +236,7 @@ export default function ProductManagementModal({
                       <button
                         onClick={() => handleOpenEditForm(product)}
                         title="Edit Produk"
-                        className="p-1.5 text-[#9CA3AF] hover:text-white hover:bg-[#1F2937] rounded-lg transition-colors"
+                        className="p-1.5 text-dark-muted hover:text-white hover:bg-dark-card rounded-lg transition-colors"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
@@ -245,7 +245,7 @@ export default function ProductManagementModal({
                         disabled={deletingId === product.id}
                         onClick={() => handleDeleteProduct(product)}
                         title="Hapus Produk"
-                        className="p-1.5 text-[#9CA3AF] hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors disabled:opacity-50"
+                        className="p-1.5 text-dark-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors disabled:opacity-50"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -261,14 +261,14 @@ export default function ProductManagementModal({
       {/* Sub-modal Form Tambah/Edit Produk */}
       {isFormOpen && (
         <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="w-full max-w-md bg-[#111827] border border-[#374151] rounded-xl shadow-2xl p-6 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1F2937]">
+          <div className="w-full max-w-md bg-dark-surface border border-dark-border rounded-xl shadow-2xl p-6 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-dark-card">
               <h3 className="font-bold text-base text-white">
                 {editingProduct ? 'Edit Produk' : 'Tambah Produk Baru'}
               </h3>
               <button
                 onClick={() => setIsFormOpen(false)}
-                className="text-[#9CA3AF] hover:text-white"
+                className="text-dark-muted hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -282,36 +282,36 @@ export default function ProductManagementModal({
 
             <form onSubmit={handleSubmitForm} className="space-y-4 text-xs">
               <div>
-                <label className="block text-[#9CA3AF] mb-1 font-medium">Nama Produk</label>
+                <label className="block text-dark-muted mb-1 font-medium">Nama Produk</label>
                 <input
                   type="text"
                   placeholder="Misal: Kopi Susu Aren"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 bg-[#1F2937] text-white rounded-lg border border-[#374151] focus:outline-none focus:border-[#FF4500]"
+                  className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[#9CA3AF] mb-1 font-medium">Harga (Rp)</label>
+                  <label className="block text-dark-muted mb-1 font-medium">Harga (Rp)</label>
                   <input
                     type="number"
                     placeholder="18000"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#1F2937] text-white rounded-lg border border-[#374151] focus:outline-none focus:border-[#FF4500] font-mono-numbers"
+                    className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary font-mono-numbers"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[#9CA3AF] mb-1 font-medium">Stok Awal</label>
+                  <label className="block text-dark-muted mb-1 font-medium">Stok Awal</label>
                   <input
                     type="number"
                     placeholder="50"
                     value={stock}
                     onChange={(e) => setStock(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#1F2937] text-white rounded-lg border border-[#374151] focus:outline-none focus:border-[#FF4500] font-mono-numbers"
+                    className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary font-mono-numbers"
                   />
                 </div>
               </div>
@@ -322,9 +322,9 @@ export default function ProductManagementModal({
                   id="isActiveToggle"
                   checked={isActive}
                   onChange={(e) => setIsActive(e.target.checked)}
-                  className="w-4 h-4 rounded border-[#374151] bg-[#1F2937] text-[#FF4500] focus:ring-0"
+                  className="w-4 h-4 rounded border-dark-border bg-dark-card text-brand-primary focus:ring-0"
                 />
-                <label htmlFor="isActiveToggle" className="text-[#F9FAFB]">
+                <label htmlFor="isActiveToggle" className="text-dark-text">
                   Aktifkan produk untuk dijual di kasir
                 </label>
               </div>
@@ -333,14 +333,14 @@ export default function ProductManagementModal({
                 <button
                   type="button"
                   onClick={() => setIsFormOpen(false)}
-                  className="flex-1 py-2 bg-[#1F2937] text-[#9CA3AF] hover:text-white rounded-lg font-medium"
+                  className="flex-1 py-2 bg-dark-card text-dark-muted hover:text-white rounded-lg font-medium"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 py-2 bg-[#FF4500] hover:bg-[#E03E00] text-white rounded-lg font-semibold shadow-md disabled:opacity-50"
+                  className="flex-1 py-2 bg-brand-primary hover:bg-brand-hover text-white rounded-lg font-semibold shadow-md disabled:opacity-50"
                 >
                   {isSubmitting ? 'Menyimpan...' : 'Simpan Produk'}
                 </button>
