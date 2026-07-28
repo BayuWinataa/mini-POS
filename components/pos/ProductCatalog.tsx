@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Plus, PackageX, Filter, Coffee, Utensils, LayoutGrid, Cookie } from 'lucide-react'
+import { Search, Plus, PackageX, Filter, Coffee, Utensils, LayoutGrid, Cookie, MoreHorizontal } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
 
 export interface Product {
@@ -25,6 +25,7 @@ const CATEGORIES = [
   { id: 'minuman', label: 'Minuman', icon: Coffee },
   { id: 'makanan', label: 'Makanan', icon: Utensils },
   { id: 'snack', label: 'Snack', icon: Cookie },
+  { id: 'lainnya', label: 'Lainnya', icon: MoreHorizontal },
 ]
 
 export default function ProductCatalog({
@@ -60,7 +61,16 @@ export default function ProductCatalog({
     ) {
       return 'snack'
     }
-    return 'makanan'
+    if (
+      lower.includes('roti') ||
+      lower.includes('croissant') ||
+      lower.includes('nasi') ||
+      lower.includes('goreng') ||
+      lower.includes('makan')
+    ) {
+      return 'makanan'
+    }
+    return 'lainnya'
   }
 
   const filteredProducts = products.filter((p) => {
