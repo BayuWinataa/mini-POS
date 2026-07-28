@@ -18,7 +18,23 @@ import { processCheckout } from '@/app/actions/transactionActions'
 export default function PosDashboardPage() {
   // Custom Hooks for Data & Cart
   const { products, transactions, isLoading, refreshData } = usePosData()
-  const { cart, addToCart, updateQuantity, removeItem, clearCart } = useCart()
+  const {
+    cart,
+    subtotal,
+    discountType,
+    discountValue,
+    discountAmount,
+    finalTotal,
+    activeVoucherCode,
+    setDiscountType,
+    setDiscountValue,
+    applyVoucherCode,
+    clearDiscount,
+    addToCart,
+    updateQuantity,
+    removeItem,
+    clearCart,
+  } = useCart()
 
   // State for Checkout & Modals
   const [isCheckoutSubmitting, setIsCheckoutSubmitting] = useState(false)
@@ -54,6 +70,7 @@ export default function PosDashboardPage() {
           productId: item.product.id,
           quantity: item.quantity,
         })),
+        discountAmount,
       }
 
       const res = await processCheckout(payload)
@@ -72,7 +89,7 @@ export default function PosDashboardPage() {
     } finally {
       setIsCheckoutSubmitting(false)
     }
-  }, [cart, clearCart, refreshData])
+  }, [cart, discountAmount, clearCart, refreshData])
 
   // Global Keyboard Hotkeys Listener
   useKeyboardShortcuts({
@@ -104,6 +121,16 @@ export default function PosDashboardPage() {
         <div className="lg:col-span-1 h-full overflow-hidden flex flex-col">
           <CartPanel
             cart={cart}
+            subtotal={subtotal}
+            discountType={discountType}
+            discountValue={discountValue}
+            discountAmount={discountAmount}
+            finalTotal={finalTotal}
+            activeVoucherCode={activeVoucherCode}
+            onSetDiscountType={setDiscountType}
+            onSetDiscountValue={setDiscountValue}
+            onApplyVoucherCode={applyVoucherCode}
+            onClearDiscount={clearDiscount}
             onUpdateQuantity={updateQuantity}
             onRemoveItem={removeItem}
             onClearCart={clearCart}

@@ -194,11 +194,27 @@ export default function TransactionHistoryModal({
               ))}
             </div>
 
-            <div className="pt-3 border-t border-dark-border flex justify-between items-center text-xs">
-              <span className="text-dark-muted">Total Bayar:</span>
-              <span className="font-mono-numbers text-base font-bold text-brand-primary">
-                {formatRupiah(selectedTransaction.totalAmount)}
-              </span>
+            <div className="pt-3 border-t border-dark-border space-y-1 text-xs">
+              {!!selectedTransaction.discountAmount && selectedTransaction.discountAmount > 0 && (
+                <>
+                  <div className="flex justify-between text-dark-muted">
+                    <span>Subtotal Produk:</span>
+                    <span className="font-mono-numbers text-dark-text">
+                      {formatRupiah(selectedTransaction.totalAmount + selectedTransaction.discountAmount)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-emerald-500 font-medium">
+                    <span>Potongan Diskon:</span>
+                    <span className="font-mono-numbers">- {formatRupiah(selectedTransaction.discountAmount)}</span>
+                  </div>
+                </>
+              )}
+              <div className="flex justify-between items-center font-bold pt-1">
+                <span className="text-dark-muted">Total Bayar:</span>
+                <span className="font-mono-numbers text-base font-bold text-brand-primary">
+                  {formatRupiah(selectedTransaction.totalAmount)}
+                </span>
+              </div>
             </div>
 
             <button

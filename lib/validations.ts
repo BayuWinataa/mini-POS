@@ -17,6 +17,7 @@ export const CartItemSchema = z.object({
 
 export const CheckoutSchema = z.object({
   items: z.array(CartItemSchema).min(1, 'Keranjang belanja tidak boleh kosong'),
+  discountAmount: z.number().int().min(0).default(0),
 })
 
 export type ProductInput = z.infer<typeof ProductSchema>

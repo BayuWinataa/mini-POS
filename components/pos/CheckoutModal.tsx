@@ -156,6 +156,20 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
               <span>Total Qty</span>
               <span className="font-mono-numbers text-dark-text">{transaction.itemCount} item</span>
             </div>
+            {!!transaction.discountAmount && transaction.discountAmount > 0 && (
+              <>
+                <div className="flex justify-between text-dark-muted">
+                  <span>Subtotal Produk</span>
+                  <span className="font-mono-numbers text-dark-text">
+                    {formatRupiah(transaction.totalAmount + transaction.discountAmount)}
+                  </span>
+                </div>
+                <div className="flex justify-between text-emerald-500 font-medium">
+                  <span>Potongan Diskon</span>
+                  <span className="font-mono-numbers">- {formatRupiah(transaction.discountAmount)}</span>
+                </div>
+              </>
+            )}
             <div className="flex justify-between text-sm font-bold pt-2 border-t border-dark-border">
               <span>Total Bayar</span>
               <span className="font-mono-numbers text-brand-primary">

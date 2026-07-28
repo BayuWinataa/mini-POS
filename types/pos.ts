@@ -20,10 +20,18 @@ export interface TransactionItemRecord {
   subtotal: number
 }
 
+export type DiscountType = 'percentage' | 'fixed'
+
+export interface DiscountInput {
+  type: DiscountType
+  value: number
+}
+
 export interface TransactionRecord {
   id: string
   transactionNumber: string
   totalAmount: number
+  discountAmount?: number
   itemCount: number
   createdAt: Date | string
   items: TransactionItemRecord[]

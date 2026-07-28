@@ -69,18 +69,24 @@ export async function processCheckout(input: CheckoutInput) {
       })
     }
 
+    // Calculate discount and final payable total amount
+    const rawDiscountAmount = validated.discountAmount || 0
+    const discountAmount = Math.min(rawDiscountAmount, totalAmount)
+    const finalTotalAmount = Math.max(0, totalAmount - discountAmount)
+
     // 3. Execute Atomic Database Transaction using Prisma $transaction
     const transaction = await prisma.$transaction(async (tx) => {
       // Create Transaction record
       const createdTransaction = await tx.transaction.create({
         data: {
           transactionNumber: generateTransactionNumber(),
-          totalAmount,
+          totalAmount: finalTotalAmount,
+          discountAmount,
           itemCount: totalItemCount,
           items: {
             create: transactionItemsData,
           },
-        },
+        } as any,
         include: {
           items: true,
         },

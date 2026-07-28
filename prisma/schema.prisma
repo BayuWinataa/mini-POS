@@ -25,6 +25,7 @@ model Transaction {
   id                String            @id @default(uuid())
   transactionNumber String            @unique
   totalAmount       Int
+  discountAmount    Int               @default(0)
   itemCount         Int
   createdAt         DateTime          @default(now())
   items             TransactionItem[]

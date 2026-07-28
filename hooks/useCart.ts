@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
-import { Product, CartItem } from '@/types/pos'
+import { Product, CartItem, DiscountType } from '@/types/pos'
 
 const CART_STORAGE_KEY = 'mini_pos_cart_draft'
 
 export function useCart() {
   const [cart, setCart] = useState<CartItem[]>([])
+  const [discountType, setDiscountType] = useState<DiscountType>('percentage')
+  const [discountValue, setDiscountValue] = useState<number>(0)
+  const [activeVoucherCode, setActiveVoucherCode] = useState<string>('')
   const [mounted, setMounted] = useState(false)
 
   // Load saved draft cart from localStorage on initial client mount
@@ -40,6 +43,15 @@ export function useCart() {
       console.error('Failed to save cart draft to localStorage:', err)
     }
   }, [cart, mounted])
+
+  // Subtotal, Discount & Payable Amount Calculations
+  const subtotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+  const discountAmount = Math.round(
+    discountType === 'percentage'
+      ? (subtotal * Math.min(100, Math.max(0, discountValue))) / 100
+      : Math.min(subtotal, Math.max(0, discountValue))
+  )
+  const finalTotal = Math.max(0, subtotal - discountAmount)
 
   const addToCart = (product: Product) => {
     const existing = cart.find((item) => item.product.id === product.id)
@@ -87,8 +99,36 @@ export function useCart() {
     toast.info('Item dihapus dari keranjang')
   }
 
+  const applyVoucherCode = (code: string) => {
+    const cleanCode = code.trim().toUpperCase()
+    if (cleanCode === 'DISKON5') {
+      setDiscountType('percentage')
+      setDiscountValue(5)
+      setActiveVoucherCode('DISKON5')
+      toast.success('Kupon DISKON5 (Diskon 5%) dipasang!')
+    } else if (cleanCode === 'DISKON10') {
+      setDiscountType('percentage')
+      setDiscountValue(10)
+      setActiveVoucherCode('DISKON10')
+      toast.success('Kupon DISKON10 (Diskon 10%) dipasang!')
+    } else if (cleanCode === 'HEMAT5K') {
+      setDiscountType('fixed')
+      setDiscountValue(5000)
+      setActiveVoucherCode('HEMAT5K')
+      toast.success('Kupon HEMAT5K (Potongan Rp 5.000) dipasang!')
+    } else {
+      toast.error('Kode kupon tidak valid')
+    }
+  }
+
+  const clearDiscount = () => {
+    setDiscountValue(0)
+    setActiveVoucherCode('')
+  }
+
   const clearCart = () => {
     setCart([])
+    clearDiscount()
     try {
       localStorage.removeItem(CART_STORAGE_KEY)
     } catch (err) {
@@ -98,6 +138,16 @@ export function useCart() {
 
   return {
     cart,
+    subtotal,
+    discountType,
+    discountValue,
+    discountAmount,
+    finalTotal,
+    activeVoucherCode,
+    setDiscountType,
+    setDiscountValue,
+    applyVoucherCode,
+    clearDiscount,
     addToCart,
     updateQuantity,
     removeItem,
