@@ -1,6 +1,7 @@
 'use client'
 
-import { Store, Package, History, RefreshCw, Sun, Moon, BarChart3 } from 'lucide-react'
+import Image from 'next/image'
+import { Package, History, RefreshCw, Sun, Moon, BarChart3 } from 'lucide-react'
 import { useTheme } from '@/providers/theme-provider'
 
 interface HeaderProps {
@@ -23,9 +24,13 @@ export default function Header({
   return (
     <header className="h-16 px-6 bg-dark-surface border-b border-dark-card flex items-center justify-between shrink-0 shadow-md transition-colors duration-200">
       <div className="flex items-center gap-3">
-        <div className="p-2 bg-brand-primary text-white rounded-xl shadow-lg shadow-brand-primary/25">
-          <Store className="w-5 h-5" />
-        </div>
+        <Image
+          src="/logo.jpg"
+          alt="MINI POS Logo"
+          width={36}
+          height={36}
+          className="w-9 h-9 rounded-xl object-cover shadow-md shadow-brand-primary/20 border border-brand-primary/30 shrink-0"
+        />
         <div>
           <div className="flex items-center gap-2">
             <h1 className="font-extrabold text-base tracking-tight text-dark-text">MINI POS</h1>

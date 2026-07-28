@@ -17,6 +17,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Mini POS - Kasir & Manajemen Penjualan Ritel',
   description: 'Aplikasi Point of Sale (POS) ritel modern, responsif, dan aman dengan manajemen stok & kalkulasi server-side.',
+  icons: {
+    icon: '/logo.jpg',
+    shortcut: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
 }
 
 export default function RootLayout({

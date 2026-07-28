@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { CheckCircle2, Printer, X, ShoppingBag, Banknote } from 'lucide-react'
+import Image from 'next/image'
+import { CheckCircle2, Printer, X, Banknote } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { formatDate, formatRupiah } from '@/lib/utils'
 
@@ -67,8 +68,14 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
         {/* Printable Struk Receipt Content (Scrollable Container) */}
         <div id="printable-receipt" className="flex-1 overflow-y-auto p-6 space-y-4">
           <div className="text-center pb-4 border-b border-dashed border-dark-border">
-            <div className="inline-flex p-3 bg-brand-primary/10 text-brand-primary rounded-full mb-2">
-              <ShoppingBag className="w-6 h-6" />
+            <div className="inline-flex relative w-12 h-12 rounded-xl overflow-hidden mb-2 border border-brand-primary/30 shadow-md">
+              <Image
+                src="/logo.jpg"
+                alt="MINI POS Logo"
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
+              />
             </div>
             <h3 className="font-bold text-lg text-dark-text">MINI POS RITEL</h3>
             <p className="text-xs text-dark-muted mt-0.5">Bukti Pembayaran Penjualan</p>
