@@ -8,6 +8,7 @@ import CartPanel from '@/components/pos/CartPanel'
 import CheckoutModal, { TransactionSummary } from '@/components/pos/CheckoutModal'
 import ProductManagementModal from '@/components/products/ProductManagementModal'
 import TransactionHistoryModal from '@/components/history/TransactionHistoryModal'
+import AnalyticsDashboardModal from '@/components/analytics/AnalyticsDashboardModal'
 
 import { usePosData } from '@/hooks/usePosData'
 import { useCart } from '@/hooks/useCart'
@@ -24,6 +25,7 @@ export default function PosDashboardPage() {
   const [activeTransaction, setActiveTransaction] = useState<TransactionSummary | null>(null)
   const [isProductModalOpen, setIsProductModalOpen] = useState(false)
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false)
+  const [isAnalyticsModalOpen, setIsAnalyticsModalOpen] = useState(false)
 
   // Calculate Today's Sales Statistics
   const todayStr = new Date().toDateString()
@@ -38,6 +40,7 @@ export default function PosDashboardPage() {
     setActiveTransaction(null)
     setIsProductModalOpen(false)
     setIsHistoryModalOpen(false)
+    setIsAnalyticsModalOpen(false)
   }, [])
 
   // Checkout Execution
@@ -82,10 +85,9 @@ export default function PosDashboardPage() {
       {/* Navbar Header */}
       <Header
         isLoading={isLoading}
-        todaySalesTotal={todaySalesTotal}
-        todayTransactionCount={todayTransactionCount}
         onOpenProductModal={() => setIsProductModalOpen(true)}
         onOpenHistoryModal={() => setIsHistoryModalOpen(true)}
+        onOpenAnalyticsModal={() => setIsAnalyticsModalOpen(true)}
         onRefresh={refreshData}
       />
 
@@ -128,6 +130,13 @@ export default function PosDashboardPage() {
         isOpen={isHistoryModalOpen}
         onClose={() => setIsHistoryModalOpen(false)}
         transactions={transactions}
+      />
+
+      <AnalyticsDashboardModal
+        isOpen={isAnalyticsModalOpen}
+        onClose={() => setIsAnalyticsModalOpen(false)}
+        transactions={transactions}
+        products={products}
       />
     </div>
   )
