@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, Plus, PackageX, Sparkles, Filter } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Search, Plus, PackageX, Filter } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
 
 export interface Product {
@@ -86,69 +87,79 @@ export default function ProductCatalog({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredProducts.map((product) => {
-              const isOutOfStock = product.stock <= 0
-              const isLowStock = product.stock > 0 && product.stock <= 5
+          <motion.div
+            layout
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          >
+            <AnimatePresence>
+              {filteredProducts.map((product) => {
+                const isOutOfStock = product.stock <= 0
+                const isLowStock = product.stock > 0 && product.stock <= 5
 
-              return (
-                <div
-                  key={product.id}
-                  className={`group relative flex flex-col justify-between p-4 bg-[#111827] rounded-xl border transition-all duration-200 ${
-                    !product.isActive
-                      ? 'opacity-60 border-[#1F2937] bg-[#111827]/40'
-                      : 'border-[#1F2937] hover:border-[#FF4500]/50 hover:shadow-lg hover:shadow-[#FF4500]/5'
-                  }`}
-                >
-                  {/* Status Badge */}
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-semibold text-sm text-[#F9FAFB] line-clamp-2 leading-snug">
-                      {product.name}
-                    </h3>
-                    <span
-                      className={`text-[10px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 ${
-                        !product.isActive
-                          ? 'bg-gray-800 text-gray-400 border border-gray-700'
+                return (
+                  <motion.div
+                    key={product.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className={`group relative flex flex-col justify-between p-4 bg-[#111827] rounded-xl border transition-all duration-200 ${
+                      !product.isActive
+                        ? 'opacity-60 border-[#1F2937] bg-[#111827]/40'
+                        : 'border-[#1F2937] hover:border-[#FF4500]/50 hover:shadow-lg hover:shadow-[#FF4500]/5'
+                    }`}
+                  >
+                    {/* Status Badge */}
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-semibold text-sm text-[#F9FAFB] line-clamp-2 leading-snug">
+                        {product.name}
+                      </h3>
+                      <span
+                        className={`text-[10px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 ${
+                          !product.isActive
+                            ? 'bg-gray-800 text-gray-400 border border-gray-700'
+                            : isOutOfStock
+                            ? 'bg-red-500/10 text-red-400 border border-red-500/20'
+                            : isLowStock
+                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                            : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                        }`}
+                      >
+                        {!product.isActive
+                          ? 'Nonaktif'
                           : isOutOfStock
-                          ? 'bg-red-500/10 text-red-400 border border-red-500/20'
+                          ? 'Habis'
                           : isLowStock
-                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                          : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                      }`}
-                    >
-                      {!product.isActive
-                        ? 'Nonaktif'
-                        : isOutOfStock
-                        ? 'Habis'
-                        : isLowStock
-                        ? `Sisa ${product.stock}`
-                        : `Stok ${product.stock}`}
-                    </span>
-                  </div>
-
-                  {/* Pricing & Action */}
-                  <div className="mt-4 flex items-center justify-between pt-3 border-t border-[#1F2937]">
-                    <div className="font-mono-numbers text-base font-bold text-[#FF4500]">
-                      {formatRupiah(product.price)}
+                          ? `Sisa ${product.stock}`
+                          : `Stok ${product.stock}`}
+                      </span>
                     </div>
 
-                    <button
-                      disabled={!product.isActive || isOutOfStock}
-                      onClick={() => onAddToCart(product)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                        !product.isActive || isOutOfStock
-                          ? 'bg-[#1F2937] text-[#6B7280] cursor-not-allowed'
-                          : 'bg-[#FF4500] hover:bg-[#E03E00] text-white shadow-sm hover:shadow-[#FF4500]/20 active:scale-95'
-                      }`}
-                    >
-                      <Plus className="w-3.5 h-3.5" />
-                      <span>Tambah</span>
-                    </button>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+                    {/* Pricing & Action */}
+                    <div className="mt-4 flex items-center justify-between pt-3 border-t border-[#1F2937]">
+                      <div className="font-mono-numbers text-base font-bold text-[#FF4500]">
+                        {formatRupiah(product.price)}
+                      </div>
+
+                      <button
+                        disabled={!product.isActive || isOutOfStock}
+                        onClick={() => onAddToCart(product)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                          !product.isActive || isOutOfStock
+                            ? 'bg-[#1F2937] text-[#6B7280] cursor-not-allowed'
+                            : 'bg-[#FF4500] hover:bg-[#E03E00] text-white shadow-sm hover:shadow-[#FF4500]/20 active:scale-95'
+                        }`}
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>Tambah</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </AnimatePresence>
+          </motion.div>
         )}
       </div>
     </div>

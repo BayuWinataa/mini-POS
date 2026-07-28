@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { toast } from 'sonner'
 import Header from '@/components/layout/Header'
 import ProductCatalog from '@/components/pos/ProductCatalog'
 import CartPanel from '@/components/pos/CartPanel'
@@ -13,17 +14,9 @@ import { useCart } from '@/hooks/useCart'
 import { processCheckout } from '@/app/actions/transactionActions'
 
 export default function PosDashboardPage() {
-  // Toast Notification State
-  const [toastMsg, setToastMsg] = useState<string | null>(null)
-
-  const showToast = (text: string) => {
-    setToastMsg(text)
-    setTimeout(() => setToastMsg(null), 4000)
-  }
-
   // Custom Hooks for Data & Cart
   const { products, transactions, isLoading, refreshData } = usePosData()
-  const { cart, addToCart, updateQuantity, removeItem, clearCart } = useCart(showToast)
+  const { cart, addToCart, updateQuantity, removeItem, clearCart } = useCart()
 
   // State for Checkout & Modals
   const [isCheckoutSubmitting, setIsCheckoutSubmitting] = useState(false)
@@ -46,15 +39,16 @@ export default function PosDashboardPage() {
 
       const res = await processCheckout(payload)
       if (!res.success || !res.data) {
-        showToast(res.error || 'Checkout gagal diproses.')
+        toast.error(res.error || 'Checkout gagal diproses.')
         return
       }
 
+      toast.success('Transaksi berhasil diproses!')
       setActiveTransaction(res.data)
       clearCart()
       refreshData()
     } catch (err: any) {
-      showToast(err.message || 'Terjadi kesalahan sistem saat checkout.')
+      toast.error(err.message || 'Terjadi kesalahan sistem saat checkout.')
     } finally {
       setIsCheckoutSubmitting(false)
     }
@@ -69,16 +63,6 @@ export default function PosDashboardPage() {
         onOpenHistoryModal={() => setIsHistoryModalOpen(true)}
         onRefresh={refreshData}
       />
-
-      {/* Toast Alert Banner */}
-      {toastMsg && (
-        <div className="px-6 py-2 bg-red-500/10 border-b border-red-500/30 text-red-400 text-xs font-medium flex items-center justify-between animate-fade-in">
-          <span>{toastMsg}</span>
-          <button onClick={() => setToastMsg(null)} className="underline text-[11px] hover:text-red-300">
-            Tutup
-          </button>
-        </div>
-      )}
 
       {/* Main Split-Screen Dashboard */}
       <main className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 overflow-hidden">
