@@ -111,7 +111,7 @@ export default function ProductCatalog({
           </button>
         </div>
 
-        {/* Category Pills Filter */}
+        {/* Category Pills Filter with Smooth Sliding Indicator */}
         <div className="flex items-center gap-2 pt-1 overflow-x-auto no-scrollbar">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon
@@ -120,14 +120,21 @@ export default function ProductCatalog({
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all shrink-0 ${
-                  isSelected
-                    ? 'bg-brand-primary text-white shadow-md'
-                    : 'bg-dark-card text-dark-muted hover:text-white hover:bg-dark-border border border-dark-border'
+                className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
+                  isSelected ? 'text-white' : 'text-dark-muted hover:text-white bg-dark-card border border-dark-border'
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{cat.label}</span>
+                {isSelected && (
+                  <motion.div
+                    layoutId="activeCategoryPill"
+                    className="absolute inset-0 bg-brand-primary rounded-lg shadow-md"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <Icon className="w-3.5 h-3.5" />
+                  <span>{cat.label}</span>
+                </span>
               </button>
             )
           })}
@@ -150,7 +157,12 @@ export default function ProductCatalog({
             ))}
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 bg-dark-surface/50 rounded-xl border border-dashed border-dark-border p-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="flex flex-col items-center justify-center h-64 bg-dark-surface/50 rounded-xl border border-dashed border-dark-border p-8 text-center"
+          >
             <PackageX className="w-12 h-12 text-dark-subtle mb-3" />
             <h4 className="text-sm font-semibold text-dark-text">Produk Tidak Ditemukan</h4>
             <p className="text-xs text-dark-muted mt-1 max-w-xs">
@@ -158,13 +170,13 @@ export default function ProductCatalog({
                 ? `Tidak ada produk yang cocok dengan pencarian "${search}".`
                 : 'Belum ada produk yang tersedia di kategori ini.'}
             </p>
-          </div>
+          </motion.div>
         ) : (
           <motion.div
             layout
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
-            <AnimatePresence>
+            <AnimatePresence mode="popLayout">
               {filteredProducts.map((product) => {
                 const isOutOfStock = product.stock <= 0
                 const isLowStock = product.stock > 0 && product.stock <= 5
@@ -173,10 +185,10 @@ export default function ProductCatalog({
                   <motion.div
                     key={product.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
                     className={`group relative flex flex-col justify-between p-4 bg-dark-surface rounded-xl border transition-all duration-200 ${
                       !product.isActive
                         ? 'opacity-60 border-dark-card bg-dark-surface/40'
