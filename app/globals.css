@@ -4,14 +4,14 @@
   --color-brand-primary: #FF4500;
   --color-brand-hover: #E03E00;
   
-  --color-dark-bg: #0B0F19;
-  --color-dark-surface: #111827;
-  --color-dark-card: #1F2937;
-  --color-dark-border: #374151;
+  --color-dark-bg: var(--bg-main);
+  --color-dark-surface: var(--bg-surface);
+  --color-dark-card: var(--bg-card);
+  --color-dark-border: var(--border-color);
   
-  --color-dark-text: #F9FAFB;
-  --color-dark-muted: #9CA3AF;
-  --color-dark-subtle: #6B7280;
+  --color-dark-text: var(--text-primary);
+  --color-dark-muted: var(--text-secondary);
+  --color-dark-subtle: var(--text-muted);
   
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -23,13 +23,13 @@
     --primary-hover: #E03E00;
     --primary-light: rgba(255, 69, 0, 0.1);
     
-    --bg-main: #F8FAFC;
+    --bg-main: #F3F4F6;
     --bg-surface: #FFFFFF;
-    --bg-card: #FFFFFF;
+    --bg-card: #F9FAFB;
     
-    --text-primary: #111827;
-    --text-secondary: #4B5563;
-    --text-muted: #9CA3AF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
     
     --border-color: #E2E8F0;
     --border-accent: rgba(255, 69, 0, 0.3);

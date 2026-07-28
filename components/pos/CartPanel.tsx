@@ -95,7 +95,7 @@ export default function CartPanel({
                   <div className="flex items-center bg-dark-card border border-dark-border rounded-lg p-0.5">
                     <button
                       onClick={() => onUpdateQuantity(product.id, -1)}
-                      className="p-1 text-dark-muted hover:text-white rounded hover:bg-dark-border transition-colors"
+                      className="p-1 text-dark-muted hover:text-dark-text rounded hover:bg-dark-border transition-colors"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
@@ -108,7 +108,7 @@ export default function CartPanel({
                       className={`p-1 rounded transition-colors ${
                         isStockMaxed
                           ? 'text-dark-subtle cursor-not-allowed'
-                          : 'text-dark-muted hover:text-white hover:bg-dark-border'
+                          : 'text-dark-muted hover:text-dark-text hover:bg-dark-border'
                       }`}
                     >
                       <Plus className="w-3 h-3" />

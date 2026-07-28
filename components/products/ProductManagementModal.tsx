@@ -150,14 +150,14 @@ export default function ProductManagementModal({
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-dark-card/60 border-b border-dark-card">
           <div>
-            <h2 className="font-bold text-lg text-white">Manajemen Katalog Produk</h2>
+            <h2 className="font-bold text-lg text-dark-text">Manajemen Katalog Produk</h2>
             <p className="text-xs text-dark-muted">
               Kelola stok, harga, kategori, status aktif, dan hapus produk kasir.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-dark-muted hover:text-white rounded-lg hover:bg-dark-card transition-colors"
+            className="p-1.5 text-dark-muted hover:text-dark-text rounded-lg hover:bg-dark-card transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -180,7 +180,7 @@ export default function ProductManagementModal({
               placeholder="Cari nama produk..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 bg-dark-card text-xs text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
+              className="w-full pl-9 pr-3 py-1.5 bg-dark-card text-xs text-dark-text rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -286,12 +286,12 @@ export default function ProductManagementModal({
             className="w-full max-w-md bg-dark-surface border border-dark-border rounded-xl shadow-2xl p-6 space-y-4 cursor-default"
           >
             <div className="flex items-center justify-between pb-3 border-b border-dark-card">
-              <h3 className="font-bold text-base text-white">
+              <h3 className="font-bold text-base text-dark-text">
                 {editingProduct ? 'Edit Produk' : 'Tambah Produk Baru'}
               </h3>
               <button
                 onClick={() => setIsFormOpen(false)}
-                className="text-dark-muted hover:text-white"
+                className="text-dark-muted hover:text-dark-text"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -311,7 +311,7 @@ export default function ProductManagementModal({
                   placeholder="Misal: Kopi Susu Aren"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
+                  className="w-full px-3 py-2 bg-dark-card text-dark-text rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -320,7 +320,7 @@ export default function ProductManagementModal({
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
+                  className="w-full px-3 py-2 bg-dark-card text-dark-text rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
                 >
                   <option value="Minuman">Minuman</option>
                   <option value="Makanan">Makanan</option>
@@ -337,7 +337,7 @@ export default function ProductManagementModal({
                     placeholder="18000"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
-                    className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary font-mono-numbers"
+                    className="w-full px-3 py-2 bg-dark-card text-dark-text rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary font-mono-numbers"
                   />
                 </div>
 
@@ -348,7 +348,7 @@ export default function ProductManagementModal({
                     placeholder="50"
                     value={stock}
                     onChange={(e) => setStock(e.target.value)}
-                    className="w-full px-3 py-2 bg-dark-card text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary font-mono-numbers"
+                    className="w-full px-3 py-2 bg-dark-card text-dark-text rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary font-mono-numbers"
                   />
                 </div>
               </div>

@@ -70,7 +70,7 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
             <div className="inline-flex p-3 bg-brand-primary/10 text-brand-primary rounded-full mb-2">
               <ShoppingBag className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-lg text-white">MINI POS RITEL</h3>
+            <h3 className="font-bold text-lg text-dark-text">MINI POS RITEL</h3>
             <p className="text-xs text-dark-muted mt-0.5">Bukti Pembayaran Penjualan</p>
             <div className="mt-3 inline-block px-3 py-1 bg-dark-card text-xs font-mono-numbers text-brand-primary font-semibold rounded-md border border-dark-border">
               {transaction.transactionNumber}
@@ -100,7 +100,7 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
           {/* Cash & Change Calculator */}
           <div className="no-print p-3 bg-dark-card/50 rounded-xl border border-dark-border space-y-2 text-xs">
             <div className="flex items-center justify-between text-dark-muted font-medium">
-              <span className="flex items-center gap-1.5 text-white">
+              <span className="flex items-center gap-1.5 text-dark-text">
                 <Banknote className="w-4 h-4 text-brand-primary" />
                 <span>Uang Tunai (Cash):</span>
               </span>
@@ -109,7 +109,7 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
                 placeholder="Jumlah Bayar..."
                 value={cashAmount}
                 onChange={(e) => setCashAmount(e.target.value)}
-                className="w-32 px-2.5 py-1 bg-dark-card text-right font-mono-numbers text-white rounded border border-dark-border focus:outline-none focus:border-brand-primary"
+                className="w-32 px-2.5 py-1 bg-dark-card text-right font-mono-numbers text-dark-text rounded border border-dark-border focus:outline-none focus:border-brand-primary"
               />
             </div>
 
@@ -118,21 +118,21 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
               <button
                 type="button"
                 onClick={() => handleQuickCash(transaction.totalAmount)}
-                className="px-2 py-0.5 bg-dark-card hover:bg-dark-border text-[10px] text-dark-muted rounded border border-dark-border hover:text-white"
+                className="px-2 py-0.5 bg-dark-card hover:bg-dark-border text-[10px] text-dark-muted rounded border border-dark-border hover:text-dark-text"
               >
                 Uang Pas
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickCash(50000)}
-                className="px-2 py-0.5 bg-dark-card hover:bg-dark-border text-[10px] text-dark-muted rounded border border-dark-border hover:text-white"
+                className="px-2 py-0.5 bg-dark-card hover:bg-dark-border text-[10px] text-dark-muted rounded border border-dark-border hover:text-dark-text"
               >
                 50rb
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickCash(100000)}
-                className="px-2 py-0.5 bg-dark-card hover:bg-dark-border text-[10px] text-dark-muted rounded border border-dark-border hover:text-white"
+                className="px-2 py-0.5 bg-dark-card hover:bg-dark-border text-[10px] text-dark-muted rounded border border-dark-border hover:text-dark-text"
               >
                 100rb
               </button>
@@ -154,7 +154,7 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
           <div className="pt-3 border-t border-dashed border-dark-border space-y-1.5 text-xs">
             <div className="flex justify-between text-dark-muted">
               <span>Total Qty</span>
-              <span className="font-mono-numbers text-white">{transaction.itemCount} item</span>
+              <span className="font-mono-numbers text-dark-text">{transaction.itemCount} item</span>
             </div>
             <div className="flex justify-between text-sm font-bold pt-2 border-t border-dark-border">
               <span>Total Bayar</span>
@@ -175,7 +175,7 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
         <div className="p-4 bg-dark-card/60 border-t border-dark-card flex gap-3 shrink-0 no-print">
           <button
             onClick={handlePrint}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-dark-card hover:bg-dark-border text-white text-xs font-medium rounded-lg border border-dark-border transition-all"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-dark-card hover:bg-dark-border text-dark-text text-xs font-medium rounded-lg border border-dark-border transition-all"
           >
             <Printer className="w-4 h-4 text-dark-muted" />
             <span>Cetak Struk</span>

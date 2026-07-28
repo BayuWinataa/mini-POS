@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
+import { ThemeProvider } from '@/providers/theme-provider'
 import './globals.css'
 
 const inter = Inter({
@@ -27,13 +28,16 @@ export default function RootLayout({
     <html
       lang="id"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
+      suppressHydrationWarning
     >
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-dark-bg text-dark-text font-sans"
+        className="min-h-full flex flex-col bg-dark-bg text-dark-text font-sans transition-colors duration-200"
       >
-        {children}
-        <Toaster position="top-right" richColors theme="dark" />
+        <ThemeProvider>
+          {children}
+          <Toaster position="top-right" richColors />
+        </ThemeProvider>
       </body>
     </html>
   )

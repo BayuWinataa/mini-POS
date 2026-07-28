@@ -88,7 +88,7 @@ export default function ProductCatalog({
               placeholder="Cari produk (Tekan '/' untuk fokus)..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-dark-card text-white text-sm rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary placeholder-dark-subtle transition-colors"
+              className="w-full pl-10 pr-4 py-2 bg-dark-card text-dark-text text-sm rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary placeholder-dark-subtle transition-colors"
             />
           </div>
 
@@ -97,7 +97,7 @@ export default function ProductCatalog({
             className={`flex items-center justify-center gap-2 px-3.5 py-2 text-xs font-medium rounded-lg border transition-all ${
               filterActiveOnly
                 ? 'bg-brand-primary/10 border-brand-primary/40 text-brand-primary'
-                : 'bg-dark-card border-dark-border text-dark-muted hover:text-white'
+                : 'bg-dark-card border-dark-border text-dark-muted hover:text-dark-text'
             }`}
           >
             <Filter className="w-3.5 h-3.5" />
@@ -115,7 +115,7 @@ export default function ProductCatalog({
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
-                  isSelected ? 'text-white' : 'text-dark-muted hover:text-white bg-dark-card border border-dark-border'
+                  isSelected ? 'text-white' : 'text-dark-muted hover:text-dark-text bg-dark-card border border-dark-border'
                 }`}
               >
                 {isSelected && (

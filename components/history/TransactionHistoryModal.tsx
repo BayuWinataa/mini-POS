@@ -69,7 +69,7 @@ export default function TransactionHistoryModal({
               <Receipt className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="font-bold text-lg text-white">Riwayat Transaksi Penjualan</h2>
+              <h2 className="font-bold text-lg text-dark-text">Riwayat Transaksi Penjualan</h2>
               <p className="text-xs text-dark-muted">
                 Daftar seluruh pesanan checkout yang telah berhasil diproses.
               </p>
@@ -77,7 +77,7 @@ export default function TransactionHistoryModal({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-dark-muted hover:text-white rounded-lg hover:bg-dark-card transition-colors"
+            className="p-1.5 text-dark-muted hover:text-dark-text rounded-lg hover:bg-dark-card transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -92,14 +92,14 @@ export default function TransactionHistoryModal({
               placeholder="Cari No. Transaksi atau Nama Produk..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 bg-dark-card text-xs text-white rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
+              className="w-full pl-9 pr-3 py-1.5 bg-dark-card text-xs text-dark-text rounded-lg border border-dark-border focus:outline-none focus:border-brand-primary"
             />
           </div>
 
           <button
             disabled={isExporting || transactions.length === 0}
             onClick={handleExportCSV}
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-dark-card hover:bg-dark-border text-white border border-dark-border text-xs font-medium rounded-lg transition-all disabled:opacity-50"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-dark-card hover:bg-dark-border text-dark-text border border-dark-border text-xs font-medium rounded-lg transition-all disabled:opacity-50"
           >
             <Download className="w-4 h-4 text-brand-primary" />
             <span>{isExporting ? 'Mengekspor...' : 'Ekspor Laporan CSV'}</span>
@@ -165,14 +165,14 @@ export default function TransactionHistoryModal({
           >
             <div className="flex items-center justify-between pb-3 border-b border-dark-card">
               <div>
-                <h3 className="font-bold text-sm text-white">Rincian Transaksi</h3>
+                <h3 className="font-bold text-sm text-dark-text">Rincian Transaksi</h3>
                 <p className="font-mono-numbers text-xs text-brand-primary mt-0.5">
                   {selectedTransaction.transactionNumber}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedTransaction(null)}
-                className="text-dark-muted hover:text-white"
+                className="text-dark-muted hover:text-dark-text"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -182,7 +182,7 @@ export default function TransactionHistoryModal({
               {selectedTransaction.items.map((item) => (
                 <div key={item.id} className="flex justify-between py-1.5 border-b border-dark-card/50">
                   <div>
-                    <div className="font-semibold text-white">{item.productName}</div>
+                    <div className="font-semibold text-dark-text">{item.productName}</div>
                     <div className="text-[11px] text-dark-muted font-mono-numbers">
                       {item.quantity} x {formatRupiah(item.price)}
                     </div>
@@ -203,7 +203,7 @@ export default function TransactionHistoryModal({
 
             <button
               onClick={() => setSelectedTransaction(null)}
-              className="w-full py-2 bg-dark-card hover:bg-dark-border text-xs font-medium text-white rounded-lg transition-colors"
+              className="w-full py-2 bg-dark-card hover:bg-dark-border text-xs font-medium text-dark-text rounded-lg transition-colors"
             >
               Tutup Detail
             </button>
