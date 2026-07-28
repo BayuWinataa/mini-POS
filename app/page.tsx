@@ -63,8 +63,9 @@ export default function PosDashboardPage() {
       setActiveTransaction(res.data)
       clearCart()
       refreshData()
-    } catch (err: any) {
-      toast.error(err.message || 'Terjadi kesalahan sistem saat checkout.')
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Terjadi kesalahan sistem saat checkout.'
+      toast.error(msg)
     } finally {
       setIsCheckoutSubmitting(false)
     }

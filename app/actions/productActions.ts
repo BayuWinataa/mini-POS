@@ -3,10 +3,11 @@
 import { prisma } from '@/lib/prisma'
 import { ProductSchema, ProductUpdateSchema, type ProductInput } from '@/lib/validations'
 import { revalidatePath } from 'next/cache'
+import { Prisma } from '@prisma/client'
 
 export async function getProducts(options?: { activeOnly?: boolean; search?: string }) {
   try {
-    const where: any = {}
+    const where: Prisma.ProductWhereInput = {}
 
     if (options?.activeOnly) {
       where.isActive = true
@@ -51,9 +52,10 @@ export async function createProduct(input: ProductInput) {
 
     revalidatePath('/')
     return { success: true, data: product }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating product:', error)
-    return { success: false, error: error.message || 'Gagal menambahkan produk' }
+    const errorMsg = error instanceof Error ? error.message : 'Gagal menambahkan produk'
+    return { success: false, error: errorMsg }
   }
 }
 
@@ -88,9 +90,10 @@ export async function updateProduct(id: string, input: Partial<ProductInput>) {
 
     revalidatePath('/')
     return { success: true, data: updated }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error updating product:', error)
-    return { success: false, error: error.message || 'Gagal memperbarui produk' }
+    const errorMsg = error instanceof Error ? error.message : 'Gagal memperbarui produk'
+    return { success: false, error: errorMsg }
   }
 }
 

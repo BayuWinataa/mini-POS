@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { generateTransactionNumber } from '@/lib/utils'
 import { CheckoutSchema, type CheckoutInput } from '@/lib/validations'
 import { revalidatePath } from 'next/cache'
+import { Prisma } from '@prisma/client'
 
 export async function processCheckout(input: CheckoutInput) {
   try {
@@ -102,18 +103,19 @@ export async function processCheckout(input: CheckoutInput) {
 
     revalidatePath('/')
     return { success: true, data: transaction }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error processing checkout:', error)
+    const errorMsg = error instanceof Error ? error.message : 'Terjadi kesalahan sistem saat memproses transaksi.'
     return {
       success: false,
-      error: error.message || 'Terjadi kesalahan sistem saat memproses transaksi.',
+      error: errorMsg,
     }
   }
 }
 
 export async function getTransactions(options?: { search?: string }) {
   try {
-    const where: any = {}
+    const where: Prisma.TransactionWhereInput = {}
 
     if (options?.search) {
       where.OR = [

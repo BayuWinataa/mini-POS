@@ -98,8 +98,8 @@ export default function ProductManagementModal({
 
       setIsFormOpen(false)
       onRefresh()
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Gagal menyimpan produk')
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : 'Gagal menyimpan produk')
     } finally {
       setIsSubmitting(false)
     }

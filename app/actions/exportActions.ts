@@ -23,9 +23,9 @@ export async function exportTransactionsCSV() {
       'Detail Item (Produk x Qty @ Harga)',
     ]
 
-    const rows = (transactions as any[]).map((t: any) => {
+    const rows = transactions.map((t) => {
       const itemsDetail = t.items
-        .map((item: any) => `${item.productName} (${item.quantity}x @ ${formatRupiah(item.price)})`)
+        .map((item) => `${item.productName} (${item.quantity}x @ ${formatRupiah(item.price)})`)
         .join('; ')
 
       return [
