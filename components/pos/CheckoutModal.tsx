@@ -57,7 +57,7 @@ export default function CheckoutModal({ transaction, onClose }: CheckoutModalPro
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in overflow-y-auto">
       <div className="relative w-full max-w-md my-auto max-h-[90vh] bg-dark-surface border border-dark-card rounded-2xl shadow-2xl overflow-hidden flex flex-col text-dark-text">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-dark-card/60 border-b border-dark-card shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 bg-dark-card/60 border-b border-dark-card shrink-0 no-print">
           <div className="flex items-center gap-2 text-emerald-400">
             <CheckCircle2 className="w-5 h-5" />
             <span className="font-semibold text-sm">Transaksi Berhasil</span>

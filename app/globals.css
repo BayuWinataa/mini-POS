@@ -120,22 +120,47 @@ body {
 
 /* Print Receipt Thermal Printer Rules */
 @media print {
-  body * {
-    visibility: hidden !important;
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
   }
-  
-  #printable-receipt,
-  #printable-receipt * {
-    visibility: visible !important;
+
+  /* Hide header, main dashboard, toasts, and non-printable elements */
+  header,
+  main,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset outer fixed modal containers so receipt flows naturally */
+  .fixed.inset-0 {
+    position: relative !important;
+    inset: auto !important;
+    z-index: 100 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    display: block !important;
+  }
+
+  .fixed.inset-0 > div {
+    position: relative !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    overflow: visible !important;
+    display: block !important;
+    margin: 0 !important;
   }
 
   #printable-receipt {
-    position: absolute !important;
-    left: 50% !important;
-    top: 0 !important;
-    transform: translateX(-50%) !important;
-    width: 320px !important;
-    margin: 0 !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 380px !important;
+    margin: 0 auto !important;
     padding: 16px !important;
     background: #FFFFFF !important;
     color: #000000 !important;
@@ -143,6 +168,7 @@ body {
     border-radius: 0 !important;
     font-family: var(--font-mono), monospace !important;
     box-shadow: none !important;
+    display: block !important;
   }
 
   #printable-receipt h3,
@@ -151,11 +177,13 @@ body {
   #printable-receipt div {
     color: #000000 !important;
     background: transparent !important;
-    border-color: #000000 !important;
+    border-color: #333333 !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
-  /* Hide non-printable elements in print preview */
-  .no-print {
-    display: none !important;
+  #printable-receipt div {
+    max-height: none !important;
+    overflow: visible !important;
   }
 }
