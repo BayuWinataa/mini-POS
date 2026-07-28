@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Product } from '@/components/pos/ProductCatalog'
-import { CartItem } from '@/components/pos/CartPanel'
+import { Product, CartItem } from '@/types/pos'
 
 export function useCart() {
   const [cart, setCart] = useState<CartItem[]>([])

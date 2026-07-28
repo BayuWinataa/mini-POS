@@ -2,12 +2,8 @@
 
 import { ShoppingBag, Trash2, Plus, Minus, ArrowRight, AlertTriangle } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
-import { Product } from './ProductCatalog'
-
-export interface CartItem {
-  product: Product
-  quantity: number
-}
+import { Product, CartItem } from '@/types/pos'
+export type { CartItem }
 
 interface CartPanelProps {
   cart: CartItem[]

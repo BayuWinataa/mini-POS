@@ -5,20 +5,8 @@ import { X, Search, Download, Eye, Receipt } from 'lucide-react'
 import { formatDate, formatRupiah } from '@/lib/utils'
 import { exportTransactionsCSV } from '@/app/actions/exportActions'
 
-export interface TransactionRecord {
-  id: string
-  transactionNumber: string
-  totalAmount: number
-  itemCount: number
-  createdAt: Date | string
-  items: {
-    id: string
-    productName: string
-    price: number
-    quantity: number
-    subtotal: number
-  }[]
-}
+import { TransactionRecord } from '@/types/pos'
+export type { TransactionRecord }
 
 interface TransactionHistoryModalProps {
   isOpen: boolean

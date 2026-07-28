@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { X, Plus, Edit2, Search, Power, Trash2 } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
-import { Product } from '../pos/ProductCatalog'
+import { Product } from '@/types/pos'
 import { createProduct, updateProduct, toggleProductStatus, deleteProduct } from '@/app/actions/productActions'
 
 interface ProductManagementModalProps {

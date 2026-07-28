@@ -5,14 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Plus, PackageX, Filter, Coffee, Utensils, LayoutGrid, Cookie, MoreHorizontal } from 'lucide-react'
 import { formatRupiah } from '@/lib/utils'
 
-export interface Product {
-  id: string
-  name: string
-  price: number
-  stock: number
-  category?: string
-  isActive: boolean
-}
+import { Product } from '@/types/pos'
+export type { Product }
 
 interface ProductCatalogProps {
   products: Product[]

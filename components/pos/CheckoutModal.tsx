@@ -5,20 +5,8 @@ import { CheckCircle2, Printer, X, ShoppingBag, Banknote } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { formatDate, formatRupiah } from '@/lib/utils'
 
-export interface TransactionSummary {
-  id: string
-  transactionNumber: string
-  totalAmount: number
-  itemCount: number
-  createdAt: Date | string
-  items: {
-    id: string
-    productName: string
-    price: number
-    quantity: number
-    subtotal: number
-  }[]
-}
+import { TransactionRecord as TransactionSummary } from '@/types/pos'
+export type { TransactionSummary }
 
 interface CheckoutModalProps {
   transaction: TransactionSummary | null

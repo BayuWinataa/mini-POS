@@ -1,8 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Product } from '@/components/pos/ProductCatalog'
-import { TransactionRecord } from '@/components/history/TransactionHistoryModal'
+import { Product, TransactionRecord } from '@/types/pos'
 import { getProducts } from '@/app/actions/productActions'
 import { getTransactions } from '@/app/actions/transactionActions'
 
